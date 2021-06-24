@@ -3,15 +3,19 @@ import { FlatList } from "react-native";
 
 import AppListItem from "./AppListItem";
 
-export default function AppList({ customers, onListItemPressed }) {
-  const handleEndReached = () => {
-    console.log("End Reached");
-  };
-
+export default function AppList({
+  customers,
+  onListItemPressed,
+  onListEndReached,
+  onScrolling,
+}) {
+  const endReachedThreshold =
+    customers.length / (customers.length * (customers.length * 2));
   return (
     <FlatList
-      onEndReached={handleEndReached}
-      onEndReachedThreshold={0.05}
+      onEndReached={onListEndReached}
+      onEndReachedThreshold={endReachedThreshold}
+      onScroll={(e) => onScrolling(e.nativeEvent.contentOffset.y)}
       data={customers}
       renderItem={({ item }) => {
         return (

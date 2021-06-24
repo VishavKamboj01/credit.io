@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import AppToolbar from "../Components/AppToolbar";
@@ -140,9 +140,26 @@ const customers = [
 ];
 
 export default function Home() {
+  const [isListEndReached, setListEndReached] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   const handleMenuItemPressed = (id) => {};
 
   const handleListItemPressed = (id) => {};
+
+  const handleListEndReached = () => {
+    setListEndReached(true);
+  };
+
+  const handleScrolling = (position) => {
+    if (position > scrollPosition) setScrollPosition(position);
+    else {
+      if (isListEndReached) {
+        setListEndReached(false);
+        setScrollPosition(0);
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -157,8 +174,17 @@ export default function Home() {
       <AppList
         customers={customers}
         onListItemPressed={handleListItemPressed}
+        onListEndReached={handleListEndReached}
+        onScrolling={handleScrolling}
       />
-      <AppButton style={styles.addCustomerButton} title="Add Customer" />
+      <AppButton
+        style={
+          isListEndReached
+            ? styles.hideAddCustomerButton
+            : styles.addCustomerButton
+        }
+        title="Add Customer"
+      />
     </View>
   );
 }
@@ -179,5 +205,9 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
     elevation: 10,
+  },
+
+  hideAddCustomerButton: {
+    display: "none",
   },
 });
