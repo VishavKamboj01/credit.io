@@ -26,7 +26,7 @@ export default function Login({ navigation }) {
 
   const handleSignUpPress = () => {
     //Save Details in the database and login the user
-    navigation.navigate("Home", { name: "Home" });
+    // navigation.navigate("TabNavigation", { name: "TabNavigation" });
   };
 
   return (
@@ -36,19 +36,23 @@ export default function Login({ navigation }) {
           <View style={styles.container}>
             <Image source={logoIcon} style={styles.logo} />
             <AppInputField
+              icon="email"
               title="EMAIL ADDRESS"
               onChangeText={(text) => setEmail(text)}
             />
             <AppInputField
+              icon="account"
               title="USERNAME"
               onChangeText={(text) => setUsername(text)}
             />
             <AppInputField
+              icon="lock"
               title="PASSWORD"
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
             />
             <AppInputField
+              icon="lock"
               title="CONFIRM PASSWORD"
               onChangeText={(text) => setConfirmPassword(text)}
               secureTextEntry={true}

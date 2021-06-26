@@ -1,19 +1,23 @@
 import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { MenuProvider } from "react-native-popup-menu";
 import { StatusBar } from "expo-status-bar";
 
 import AppNavigator from "./app/Navigation/AppNavigator";
+import AuthNavigator from "./app/Navigation/AuthNavigator";
 
 export default function App() {
   return (
     <MenuProvider>
-      <View style={styles.container}>
-        <AppNavigator>
-          <StatusBar style="auto" />
-        </AppNavigator>
-      </View>
+      <NavigationContainer>
+        <View style={styles.container}>
+          {/* <AuthNavigator /> */}
+          <AppNavigator />
+        </View>
+        <StatusBar style="auto" />
+      </NavigationContainer>
     </MenuProvider>
   );
 }

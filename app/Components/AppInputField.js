@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { colors } from "../config/colors";
 
@@ -10,19 +11,31 @@ export default function AppInputField({
   value,
   placeholder,
   keyboardType,
+  icon,
+  numberOfLines,
+  multiline,
   ...props
 }) {
   return (
     <View style={styles.inputContainer}>
-      <Text style={styles.inputFeildTitle}>{title}</Text>
+      {/* <Text style={styles.inputFeildTitle}>{title}</Text> */}
       <View style={styles.inputFeildContainer}>
+        <MaterialCommunityIcons
+          name={icon}
+          size={24}
+          color={colors.darkSilver}
+          style={{ marginStart: 10 }}
+        />
         <TextInput
-          style={styles.inputField}
+          style={multiline ? styles.multilineInputField : styles.inputField}
           onChangeText={onChangeText}
-          selectionColor={selectionColor}
+          selectionColor={colors.peach}
           value={value}
           placeholder={placeholder}
           keyboardType={keyboardType}
+          numberOfLines={numberOfLines}
+          multiline={multiline}
+          placeholderTextColor={colors.darkSilver}
           {...props}
         ></TextInput>
       </View>
@@ -34,26 +47,37 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "85%",
     alignItems: "center",
+    marginBottom: 15,
   },
 
   inputFeildContainer: {
     width: "100%",
-    backgroundColor: colors.silver,
+    flexDirection: "row",
+    overflow: "hidden",
+    backgroundColor: colors.platinum,
     borderRadius: 25,
     elevation: 2,
+    alignItems: "center",
   },
 
   inputFeildTitle: {
-    color: colors.red,
+    color: colors.lightBlack,
     alignSelf: "flex-start",
     marginBottom: 10,
     marginTop: 20,
   },
 
   inputField: {
-    width: "100%",
+    width: "90%",
     height: 50,
     marginStart: 15,
+    color: colors.lightBlack,
+  },
+  multilineInputField: {
+    width: "90%",
+    height: 100,
+    marginStart: 15,
+    paddingTop: 10,
     color: colors.lightBlack,
   },
 });

@@ -1,40 +1,63 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { StyleSheet } from "react-native";
 
-import StartUp from "../Screens/StartUp";
-import Login from "../Screens/Login";
-import SignUp from "../Screens/SignUp";
-import Home from "../Screens/Home";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const Stack = createStackNavigator();
+import HomeNavigation from "./HomeNavigation";
+import Contacts from "../Screens/Contacts";
+import AddCustomer from "../Screens/AddCustomer";
+import { colors } from "../config/colors";
+import AddCustomerButton from "../Components/AddCustomerButton";
 
-export default function AppNavigator({ children }) {
+const Tab = createBottomTabNavigator();
+
+export default function AppNavigator() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="StartUp"
-          component={StartUp}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="SignUp"
-          component={SignUp}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Home"
-          component={Home}
-        />
-      </Stack.Navigator>
-      {children}
-    </NavigationContainer>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: colors.red,
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeNavigation}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AddCustomer"
+        component={AddCustomer}
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <AddCustomerButton
+              onPress={() => navigation.navigate("AddCustomer")}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name="Contacts"
+        component={Contacts}
+        options={{
+          tabBarLabel: "Contacts",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="contacts" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  tab: {
+    backgroundColor: colors.red,
+    elevation: 30,
+  },
+});

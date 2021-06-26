@@ -61,7 +61,7 @@ export default function AppToolbar({
 
 const styles = StyleSheet.create({
   ToolbarContainer: {
-    height: 74,
+    height: 84,
     width: "100%",
     flexDirection: "row",
     backgroundColor: "black",

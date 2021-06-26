@@ -1,28 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
-import AppToolbar from "../Components/AppToolbar";
 import AppList from "../Components/AppList";
-import AppButton from "../Components/AppButton";
 import { colors } from "../config/colors";
-
-import logo from "../assets/logo_white.png";
-import Searchbar from "../Components/Searchbar";
-
-const menuItems = [
-  {
-    id: "1",
-    title: "Item 1",
-  },
-  {
-    id: "2",
-    title: "Item 2",
-  },
-  {
-    id: "3",
-    title: "Item 3",
-  },
-];
+import AppComponent from "../Components/AppComponent";
 
 const customers = [
   {
@@ -139,53 +120,17 @@ const customers = [
   },
 ];
 
-export default function Home() {
-  const [isListEndReached, setListEndReached] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  const handleMenuItemPressed = (id) => {};
-
-  const handleListItemPressed = (id) => {};
-
-  const handleListEndReached = () => {
-    setListEndReached(true);
-  };
-
-  const handleScrolling = (position) => {
-    if (position > scrollPosition) setScrollPosition(position);
-    else {
-      if (isListEndReached) {
-        setListEndReached(false);
-        setScrollPosition(0);
-      }
-    }
+export default function Home({ navigation }) {
+  const handleListItemPressed = (item) => {
+    navigation.navigate("CustomerTransactions", { name: item.name });
   };
 
   return (
-    <View style={styles.container}>
-      <AppToolbar
-        style={styles.toolbar}
-        logo={logo}
-        title="Home"
-        menuItems={menuItems}
-        onMenuItemPressed={handleMenuItemPressed}
-      />
-      <Searchbar />
-      <AppList
-        customers={customers}
-        onListItemPressed={handleListItemPressed}
-        onListEndReached={handleListEndReached}
-        onScrolling={handleScrolling}
-      />
-      <AppButton
-        style={
-          isListEndReached
-            ? styles.hideAddCustomerButton
-            : styles.addCustomerButton
-        }
-        title="Add Customer"
-      />
-    </View>
+    <AppComponent title="Home">
+      <View style={styles.container}>
+        <AppList items={customers} onListItemPressed={handleListItemPressed} />
+      </View>
+    </AppComponent>
   );
 }
 
@@ -196,18 +141,5 @@ const styles = StyleSheet.create({
 
   toolbar: {
     backgroundColor: colors.red,
-  },
-
-  addCustomerButton: {
-    backgroundColor: colors.red,
-    width: 200,
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    elevation: 10,
-  },
-
-  hideAddCustomerButton: {
-    display: "none",
   },
 });

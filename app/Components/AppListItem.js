@@ -13,7 +13,7 @@ import customerImage from "../assets/customerImage.png";
 export default function AppListItem({
   image = customerImage,
   name,
-  recentActivity,
+  subTitle,
   payment,
   paymentStatus,
   onItemPressed,
@@ -24,7 +24,7 @@ export default function AppListItem({
         <Image style={styles.customerImage} source={image} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{name}</Text>
-          <Text style={styles.subTitle}>{recentActivity}</Text>
+          <Text style={styles.subTitle}>{subTitle}</Text>
         </View>
         <View style={styles.paymentContainer}>
           <View>
@@ -50,9 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     backgroundColor: colors.white,
-    height: 60,
-    elevation: 10,
-    marginTop: 3,
+    height: 65,
     alignItems: "center",
   },
 
