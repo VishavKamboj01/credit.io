@@ -13,12 +13,13 @@ export default function AppListItemSeperator() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    alignItems: "flex-end",
+    alignItems: "center",
+    backgroundColor: colors.white,
   },
 
   seperatorLine: {
-    width: "85%",
-    height: 1,
+    width: "80%",
+    height: 0.5,
     backgroundColor: colors.lightWhite,
   },
 });

@@ -8,9 +8,13 @@ import AppInputField from "../Components/AppInputField";
 import AppButton from "../Components/AppButton";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-export default function AddCustomer() {
+export default function AddCustomer({ navigation }) {
   const [canAskAgain, setCanAskAgain] = useState(false);
   const [imageUri, setImageUri] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [id, setId] = useState(17);
 
   const requestPermission = async () => {
     const { granted } = await ImagePicker.requestCameraPermissionsAsync();
@@ -60,7 +64,33 @@ export default function AddCustomer() {
     }
   };
 
-  const handleAddCustomerPress = () => {};
+  const handleAddCustomerPress = () => {
+    const customer = {
+      id: id.toString(),
+      name: fullName,
+      phoneNumber,
+      address,
+      imageUri,
+      recentActivity: "No Transactions yet",
+      payment: "",
+      paymentStatus: "",
+    };
+
+    setId(id + 1);
+    emptyInputFields();
+    navigation.navigate({
+      name: "HomeNavigator",
+      params: { customer: customer },
+      merge: true,
+    });
+  };
+
+  const emptyInputFields = () => {
+    setFullName("");
+    setAddress("");
+    setPhoneNumber("");
+    setImageUri("");
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -68,11 +98,14 @@ export default function AddCustomer() {
         <TouchableWithoutFeedback onPress={handleAddImagePress}>
           <View style={styles.imageInput}>
             {!imageUri ? (
-              <MaterialCommunityIcons
-                name="plus"
-                color={colors.darkSilver}
-                size={40}
-              />
+              <View style={{ alignItems: "center" }}>
+                <Text style={styles.addImage}>Add Image</Text>
+                <MaterialCommunityIcons
+                  name="plus"
+                  color={colors.darkSilver}
+                  size={40}
+                />
+              </View>
             ) : (
               <Image
                 source={{ uri: imageUri }}
@@ -81,13 +114,24 @@ export default function AddCustomer() {
             )}
           </View>
         </TouchableWithoutFeedback>
-        <AppInputField placeholder="Full Name" />
-        <AppInputField placeholder="Phone Number" keyboardType="number-pad" />
+        <AppInputField
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={(text) => setFullName(text)}
+        />
+        <AppInputField
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={(text) => setPhoneNumber(text)}
+          keyboardType="number-pad"
+        />
         <AppInputField
           placeholder="Address"
+          value={address}
           numberOfLines={4}
           multiline={true}
           textAlignVertical="top"
+          onChangeText={(text) => setAddress(text)}
         />
         <AppButton
           style={styles.addCustomerButton}
@@ -119,6 +163,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 40,
+  },
+
+  addImage: {
+    color: colors.darkSilver,
   },
 
   addCustomerButton: {

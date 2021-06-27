@@ -18,6 +18,7 @@ export default function AppList({ items, onListItemPressed }) {
             payment={item.payment}
             paymentStatus={item.paymentStatus}
             onItemPressed={() => onListItemPressed(item)}
+            imageUri={item.imageUri}
           />
         );
       }}

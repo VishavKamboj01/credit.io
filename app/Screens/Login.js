@@ -26,12 +26,12 @@ export default function Login() {
           <Image source={logoIcon} style={styles.logo} />
           <AppInputField
             icon="account"
-            title="USERNAME"
+            placeholder="Username"
             onChangeText={(text) => setUsername(text)}
           />
           <AppInputField
             icon="lock"
-            title="PASSWORD"
+            placeholder="Password"
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
           />

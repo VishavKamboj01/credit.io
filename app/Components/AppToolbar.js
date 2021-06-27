@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import {
   Menu,
@@ -8,6 +8,8 @@ import {
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
+import { colors } from "../config/colors";
+import SearchBarSeperator from "./SearchBarSeperator";
 
 export default function AppToolbar({
   style,
@@ -16,6 +18,7 @@ export default function AppToolbar({
   children,
   menuItems,
   onMenuItemPressed,
+  onSearchIconPress,
 }) {
   return (
     <View style={[styles.ToolbarContainer, style]}>
@@ -23,26 +26,31 @@ export default function AppToolbar({
         <Image source={logo} style={styles.logo} />
         <Text style={styles.title}>{title}</Text>
       </View>
-      <Menu>
-        <MenuTrigger>
-          <AntDesign
-            style={{ marginRight: 10 }}
-            name="bars"
-            color="white"
-            size={30}
-          ></AntDesign>
-        </MenuTrigger>
-        <MenuOptions>
-          {menuItems.map((item) => {
-            return (
-              <MenuOption
-                key={item.id}
-                text={item.title}
-                onSelect={() => onMenuItemPressed(item.id)}
-              />
-            );
-          })}
-          {/* <MenuOption onSelect={() => alert(`Save`)} text="Save" />
+      <View style={styles.iconsContainer}>
+        <TouchableOpacity onPress={onSearchIconPress}>
+          <Ionicons name="search-circle" size={30} color={colors.white} />
+        </TouchableOpacity>
+        <SearchBarSeperator />
+        <Menu>
+          <MenuTrigger>
+            <AntDesign
+              style={{ marginRight: 10 }}
+              name="bars"
+              color="white"
+              size={30}
+            ></AntDesign>
+          </MenuTrigger>
+          <MenuOptions>
+            {menuItems.map((item) => {
+              return (
+                <MenuOption
+                  key={item.id}
+                  text={item.title}
+                  onSelect={() => onMenuItemPressed(item.id)}
+                />
+              );
+            })}
+            {/* <MenuOption onSelect={() => alert(`Save`)} text="Save" />
           <MenuOption onSelect={() => alert(`Delete`)}>
             <Text style={{ color: "red" }}>Delete</Text>
           </MenuOption>
@@ -51,8 +59,9 @@ export default function AppToolbar({
             disabled={true}
             text="Disabled"
           /> */}
-        </MenuOptions>
-      </Menu>
+          </MenuOptions>
+        </Menu>
+      </View>
 
       {children}
     </View>
@@ -85,5 +94,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     marginLeft: 10,
+  },
+
+  iconsContainer: {
+    flexDirection: "row",
   },
 });

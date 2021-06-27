@@ -8,4 +8,5 @@ export const colors = {
   black: "#000000",
   platinum: "#E5E4E2",
   peach: "#E97451",
+  searchBarColor: "#F8F9F9",
 };

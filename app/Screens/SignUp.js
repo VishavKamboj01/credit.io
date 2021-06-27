@@ -4,10 +4,6 @@ import {
   ImageBackground,
   View,
   Image,
-  TextInput,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
 } from "react-native";
 
@@ -30,30 +26,30 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView style={{ width: "100%", height: "100%" }}>
+    <ScrollView>
       <ImageBackground style={styles.background} source={loginBackground}>
         <View style={styles.backgroundColor}>
           <View style={styles.container}>
             <Image source={logoIcon} style={styles.logo} />
             <AppInputField
               icon="email"
-              title="EMAIL ADDRESS"
+              placeholder="Email Address"
               onChangeText={(text) => setEmail(text)}
             />
             <AppInputField
               icon="account"
-              title="USERNAME"
+              placeholder="Username"
               onChangeText={(text) => setUsername(text)}
             />
             <AppInputField
               icon="lock"
-              title="PASSWORD"
+              placeholder="Password"
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
             />
             <AppInputField
               icon="lock"
-              title="CONFIRM PASSWORD"
+              placeholder="Confirm Password"
               onChangeText={(text) => setConfirmPassword(text)}
               secureTextEntry={true}
             />
@@ -66,7 +62,7 @@ export default function Login({ navigation }) {
           </View>
         </View>
       </ImageBackground>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -79,14 +75,13 @@ const styles = StyleSheet.create({
   backgroundColor: {
     flex: 1,
     backgroundColor: "rgba(255, 255, 255,0.8)",
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   container: {
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    marginTop: 100,
   },
 
   logo: {
@@ -99,5 +94,6 @@ const styles = StyleSheet.create({
     width: "85%",
     marginTop: 40,
     elevation: 10,
+    marginBottom: "50%",
   },
 });

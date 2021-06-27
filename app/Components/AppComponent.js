@@ -20,7 +20,7 @@ const menuItems = [
   },
 ];
 
-export default function AppComponent({ children, title }) {
+export default function AppComponent({ children, title, onSearchIconPress }) {
   const handleMenuItemPressed = (id) => {};
 
   return (
@@ -31,6 +31,7 @@ export default function AppComponent({ children, title }) {
         title={title}
         menuItems={menuItems}
         onMenuItemPressed={handleMenuItemPressed}
+        onSearchIconPress={onSearchIconPress}
       />
       {children}
     </View>

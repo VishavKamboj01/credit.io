@@ -12,6 +12,7 @@ import customerImage from "../assets/customerImage.png";
 
 export default function AppListItem({
   image = customerImage,
+  imageUri = "",
   name,
   subTitle,
   payment,
@@ -21,7 +22,12 @@ export default function AppListItem({
   return (
     <TouchableNativeFeedback onPress={onItemPressed}>
       <View style={styles.container}>
-        <Image style={styles.customerImage} source={image} />
+        {imageUri.length === 0 ? (
+          <Image style={styles.customerImage} source={image} />
+        ) : (
+          <Image style={styles.customerImage} source={{ uri: imageUri }} />
+        )}
+
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{name}</Text>
           <Text style={styles.subTitle}>{subTitle}</Text>
@@ -58,6 +64,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginStart: 10,
+    borderRadius: 25,
   },
 
   titleContainer: {

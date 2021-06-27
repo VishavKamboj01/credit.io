@@ -21,13 +21,21 @@ export default function AppNavigator() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeNavigator"
         component={HomeNavigation}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
+        }}
+        initialParams={{
+          customer: {
+            fullName: "",
+            phoneNumber: "",
+            address: "",
+            imageUri: "",
+          },
         }}
       />
       <Tab.Screen
